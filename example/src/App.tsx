@@ -1,15 +1,18 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import MyTurboUtils from 'my-turbo-utils';
+import { MyUtilsJSI /* MyUtilsBridged */ } from 'my-turbo-utils';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
   const [greeting, setGreeting] = React.useState('none yet');
 
   React.useEffect(() => {
-    MyTurboUtils.sumSquares(3, 4).then(setResult);
-    MyTurboUtils.makeGreetingFor('Bridge').then(setGreeting);
+    // Bridged
+    // MyUtilsBridged.sumSquares(3, 4).then(setResult);
+    // MyUtilsBridged.makeGreetingFor('Bridge').then(setGreeting);
+    setResult(MyUtilsJSI.sumSquares(3, 4));
+    setGreeting(MyUtilsJSI.makeGreetingFor('JSI'));
   }, []);
 
   return (

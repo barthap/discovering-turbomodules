@@ -2,10 +2,37 @@
 #import "my_turbo_utils-Swift.h"
 
 #include "TurboUtilsModule.h"
+#include "Logging.h"
+
+#import <React/RCTBridge+Private.h>
+#import <jsi/jsi.h>
+
+using namespace facebook;
 
 @implementation MyTurboUtils
+@synthesize bridge=_bridge;
+@synthesize methodQueue = _methodQueue;
 
 RCT_EXPORT_MODULE()
+
++ (BOOL)requiresMainQueueSetup {
+  return YES;
+}
+
+- (void)setBridge:(RCTBridge *)bridge {
+  _bridge = bridge;
+  
+  LOG("JSI Module initialization in setBridge()");
+
+  RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
+  if (!cxxBridge.runtime) {
+    return;
+  }
+  
+  jsi::Runtime* jsiRuntime = (jsi::Runtime *)cxxBridge.runtime;
+
+  turboutils::installJsi(*jsiRuntime);
+}
 
 
 #pragma mark - Legacy Bridge Methods

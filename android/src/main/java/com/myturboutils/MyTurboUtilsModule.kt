@@ -20,7 +20,15 @@ class MyTurboUtilsModule(reactContext: ReactApplicationContext?) : ReactContextB
     }
   }
 
+  private val nativeProxy = NativeProxy()
+
   override fun getName() = NAME
+
+  // JSI functions are installed when module is initialized
+  override fun initialize() {
+    super.initialize()
+    nativeProxy.installJsi(this.reactApplicationContext)
+  }
 
   /**************** LEGACY BRIDGE METHODS  */
 

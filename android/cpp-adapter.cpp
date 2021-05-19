@@ -1,7 +1,10 @@
 #include <jni.h>
 #include "TurboUtilsModule.h"
+#include "Logging.h"
 
 #include <fbjni/fbjni.h>
+
+#include <jsi/jsi.h>
 
 using namespace facebook;
 
@@ -32,10 +35,21 @@ struct NativeProxy : jni::JavaClass<NativeProxy> {
         javaClassStatic()->registerNatives({
             //used from Java
             makeNativeMethod("nativeSumSquares", NativeProxy::nativeSumSquares),
-            makeNativeMethod("nativeMakeGreeting", NativeProxy::nativeMakeGreeting)
+            makeNativeMethod("nativeMakeGreeting", NativeProxy::nativeMakeGreeting),
+
+            //initialization for JSI
+            makeNativeMethod("installNativeJsi", NativeProxy::installNativeJsi)
         });
     }
 
+private:
+    static void installNativeJsi(jni::alias_ref<jni::JObject> thiz, jlong jsiRuntimePtr) {
+        auto jsiRuntime = reinterpret_cast<jsi::Runtime*>(jsiRuntimePtr);
+
+        turboutils::installJsi(*jsiRuntime);
+    }
+
+private:
     /*** Methods below are called from Java ***/
 
     static jdouble nativeSumSquares(jni::alias_ref<jni::JClass> clazz, jdouble a, jdouble b) {
@@ -47,6 +61,7 @@ struct NativeProxy : jni::JavaClass<NativeProxy> {
          * val greetingManager = GreetingManager("fbjni")
          * return greetingManager.makeGreeting(name)
          */
+        LOG("Creating and calling Java GreetingManager instance");
         auto greetingManager = JGreetingManager::create("fbjni");
         return greetingManager->prepareGreeting(name->toStdString());
     }

@@ -1,10 +1,22 @@
 import { NativeModules } from 'react-native';
 
-type MyTurboUtilsBridgeType = {
+// Bridge
+interface MyTurboUtilsBridged {
   sumSquares(a: number, b: number): Promise<number>;
   makeGreetingFor(name: string): Promise<string>;
+}
+
+export const { MyTurboUtils: MyUtilsBridged } = NativeModules as {
+  MyTurboUtils: MyTurboUtilsBridged;
 };
 
-const { MyTurboUtils } = NativeModules;
+// JSI
+interface MyTurboUtilsJSI {
+  // notice it's synchronous
+  sumSquares(a: number, b: number): number;
+  makeGreetingFor(name: string): string;
+}
 
-export default MyTurboUtils as MyTurboUtilsBridgeType;
+// we can get global variable defined in C++
+declare var _jsiTurboUtils: MyTurboUtilsJSI;
+export const MyUtilsJSI = _jsiTurboUtils;

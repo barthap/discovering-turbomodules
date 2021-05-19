@@ -9,6 +9,9 @@ set(PACKAGE_NAME "my_turbo_utils")  # the name for our library
 # Specifies a path to native header files.
 include_directories(
         ../cpp
+        ../node_modules/react-native/React
+        ../node_modules/react-native/React/Base
+        ../node_modules/react-native/ReactCommon/jsi
 )
 
 
@@ -18,6 +21,7 @@ find_package(fbjni REQUIRED CONFIG)
 # create library "my_turbo_utils"
 add_library(${PACKAGE_NAME}
         SHARED
+        ../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
         ../cpp/TurboUtilsModule.cpp
         cpp-adapter.cpp
 )
