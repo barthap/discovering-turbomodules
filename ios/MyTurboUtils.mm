@@ -1,4 +1,5 @@
 #import "MyTurboUtils.h"
+#import "IosTurboUtilsAdapter.h"
 #import "my_turbo_utils-Swift.h"
 
 #include "TurboUtilsModule.h"
@@ -34,12 +35,13 @@ RCT_EXPORT_MODULE()
   
   jsi::Runtime* jsiRuntime = (jsi::Runtime *)cxxBridge.runtime;
   auto callInvoker = bridge.jsCallInvoker;
+  auto platformAdapter = std::make_unique<IosAdapter>();
 
   // init jsi-based module
   turboutils::installJsi(*jsiRuntime);
   
   // init turbo module
-  turboutils::installTurboModule(*jsiRuntime, callInvoker);
+  turboutils::installTurboModule(*jsiRuntime, callInvoker, std::move(platformAdapter));
 }
 
 

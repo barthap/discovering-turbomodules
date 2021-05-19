@@ -3,6 +3,7 @@
 #include <fbjni/fbjni.h>
 #include <jsi/jsi.h>
 
+#include "PlatformAdapter.h"
 #include "TurboUtilsModule.h"
 #include "Logging.h"
 
@@ -27,6 +28,20 @@ struct JGreetingManager : jni::JavaClass<JGreetingManager> {
     }
 };
 
+// Delegation of platform-specific code from JSI TurboModule
+class AndroidAdapter : public turboutils::PlatformAdapter {
+    jni::global_ref<JGreetingManager> _greetingManager;
+public:
+    AndroidAdapter() {
+        auto recognizer = JGreetingManager::create("JNI");
+        _greetingManager = jni::make_global(recognizer);
+    }
+
+    std::string delegateGreeting(const std::string &name) override {
+        return _greetingManager->prepareGreeting(name);
+    }
+};
+
 // this reflects com.myturboutils.NativeProxy class
 struct NativeProxy : jni::JavaClass<NativeProxy> {
     static constexpr auto kJavaDescriptor = "Lcom/myturboutils/NativeProxy;";
@@ -47,14 +62,16 @@ private:
     static void installNativeJsi(jni::alias_ref<jni::JObject> thiz,
                                  jlong jsiRuntimePtr,
                                  jni::alias_ref<react::CallInvokerHolder::javaobject> jsCallInvokerHolder) {
+
         auto jsiRuntime = reinterpret_cast<jsi::Runtime*>(jsiRuntimePtr);
         auto jsCallInvoker = jsCallInvokerHolder->cthis()->getCallInvoker();
+        auto platformAdapter = std::make_unique<AndroidAdapter>();
 
         // initialize jsi module
         turboutils::installJsi(*jsiRuntime);
 
         // initialize turbo module
-        turboutils::installTurboModule(*jsiRuntime, jsCallInvoker);
+        turboutils::installTurboModule(*jsiRuntime, jsCallInvoker, std::move(platformAdapter));
     }
 
 private:

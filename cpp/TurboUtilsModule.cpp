@@ -12,9 +12,12 @@ namespace turboutils
   }
 
   /*** TurboModule implementation ***/
-  void installTurboModule(jsi::Runtime& runtime, std::shared_ptr<react::CallInvoker> jsCallInvoker) {
+  void installTurboModule(jsi::Runtime& runtime,
+                          std::shared_ptr<react::CallInvoker> jsCallInvoker,
+                          std::unique_ptr<PlatformAdapter> platformAdapter) {
+    
       std::shared_ptr<UtilsTurboModule> nativeModule =
-              std::make_shared<UtilsTurboModule>(jsCallInvoker);
+              std::make_shared<UtilsTurboModule>(jsCallInvoker, std::move(platformAdapter));
 
       // register UtilsTurboModule instance as global._myUtilsTurboModule
       runtime.global().setProperty(
@@ -58,8 +61,8 @@ namespace turboutils
     /**************************************************************************/
 
     jsi::String UtilsTurboModule::nativeGreeting(jsi::Runtime &rt, const jsi::String &name) {
-        auto msg = std::string("Greeting not implemented yet for ") + name.utf8(rt);
-        return jsi::String::createFromAscii(rt, msg);
+        auto result = this->_platformAdapter->delegateGreeting(name.utf8(rt));
+        return jsi::String::createFromAscii(rt, result);
     }
 
     jsi::Value UtilsTurboModule::nativeSumSquares(jsi::Runtime &rt, double a, double b) {
