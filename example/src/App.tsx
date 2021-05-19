@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { MyUtilsJSI /* MyUtilsBridged */ } from 'my-turbo-utils';
+import { MyUtilsTurbo /* MyUtilsJSI,  MyUtilsBridged */ } from 'my-turbo-utils';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
@@ -11,8 +11,8 @@ export default function App() {
     // Bridged
     // MyUtilsBridged.sumSquares(3, 4).then(setResult);
     // MyUtilsBridged.makeGreetingFor('Bridge').then(setGreeting);
-    setResult(MyUtilsJSI.sumSquares(3, 4));
-    setGreeting(MyUtilsJSI.makeGreetingFor('JSI'));
+    setResult(MyUtilsTurbo.sumSquares(3, 4));
+    setGreeting(MyUtilsTurbo.makeGreetingFor('TurboModule'));
   }, []);
 
   return (

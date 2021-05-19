@@ -20,7 +20,12 @@ PODS:
     - glog
   - glog (0.3.5)
   - my-turbo-utils (0.1.0):
+    - Folly
+    - React
+    - React-callinvoker
     - React-Core
+    - React-jsi
+    - ReactCommon/turbomodule/core
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
     - FBLazyVector (= 0.63.4)
@@ -347,7 +352,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  my-turbo-utils: e87b8f0115e6b5d09306e170ec560c4ab2545c79
+  my-turbo-utils: 1a46edba67f0865a7cc4bc7808142223625e760c
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -370,6 +375,6 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 376455e5c18f190445dbfb465c87ec2cc527f890
+PODFILE CHECKSUM: bc14b2a6003af2a6d858f70d6ad69c61ffcdd73c
 
 COCOAPODS: 1.10.1

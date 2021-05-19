@@ -11,6 +11,14 @@ include_directories(
         ../cpp
         ../node_modules/react-native/React
         ../node_modules/react-native/React/Base
+        ../node_modules/react-native/ReactCommon
+        ../node_modules/react-native/ReactCommon/jsi
+        ../node_modules/react-native/ReactCommon/callinvoker
+        ../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon
+        ../node_modules/react-native/ReactCommon/turbomodule/core
+        ../node_modules/react-native/ReactCommon/turbomodule
+        ../node_modules/react-native/React
+        ../node_modules/react-native/React/Base
         ../node_modules/react-native/ReactCommon/jsi
 )
 
@@ -22,9 +30,22 @@ find_package(fbjni REQUIRED CONFIG)
 add_library(${PACKAGE_NAME}
         SHARED
         ../node_modules/react-native/ReactCommon/jsi/jsi/jsi.cpp
+        ../node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/turbomodule/core/jni/ReactCommon/CallInvokerHolder.cpp
+        ../node_modules/react-native/ReactCommon/turbomodule/core/TurboModule.cpp
         ../cpp/TurboUtilsModule.cpp
         cpp-adapter.cpp
 )
 
 # link fbjni and logger to my_turbo_utils
 target_link_libraries(${PACKAGE_NAME} fbjni::fbjni android log)
+
+# A workaround to avoid runtime error:
+# E/SoLoader: couldn't find DSO to load: libturbomodulejsijni.so
+add_library(
+        turbomodulejsijni
+        # Sets the library as a shared library.
+        SHARED
+        # an empty cpp file
+        ../cpp/empty.cpp
+)
+

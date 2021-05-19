@@ -5,7 +5,10 @@
 #include "Logging.h"
 
 #import <React/RCTBridge+Private.h>
+#import <React/RCTUtils.h>
+#import <ReactCommon/RCTTurboModuleManager.h>
 #import <jsi/jsi.h>
+#import <memory>
 
 using namespace facebook;
 
@@ -30,8 +33,13 @@ RCT_EXPORT_MODULE()
   }
   
   jsi::Runtime* jsiRuntime = (jsi::Runtime *)cxxBridge.runtime;
+  auto callInvoker = bridge.jsCallInvoker;
 
+  // init jsi-based module
   turboutils::installJsi(*jsiRuntime);
+  
+  // init turbo module
+  turboutils::installTurboModule(*jsiRuntime, callInvoker);
 }
 
 

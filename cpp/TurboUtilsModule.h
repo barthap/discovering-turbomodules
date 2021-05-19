@@ -3,10 +3,43 @@
 
 #include <jsi/jsi.h>
 
+#ifdef __ANDROID__
+  #include <TurboModule.h>
+#else
+  #include <ReactCommon/TurboModule.h>
+#endif
+
 namespace turboutils {
+  using namespace facebook;
+
   double sumSquares(double a, double b);
 
-  void installJsi(facebook::jsi::Runtime& rt);
+  void installJsi(jsi::Runtime& rt);
+
+  /****** TURBO MODULE STUFF BELOW *******/
+  void installTurboModule(jsi::Runtime& runtime, std::shared_ptr<react::CallInvoker> jsCallInvoker);
+
+  // This abstract class defines JSI interfaces for the turbo module
+  class JSI_EXPORT TurboUtilsSpecJSI : public facebook::react::TurboModule {
+  protected:
+      TurboUtilsSpecJSI(std::shared_ptr<facebook::react::CallInvoker> jsInvoker);
+
+  public:
+      // define our interface methods
+      virtual jsi::String nativeGreeting(jsi::Runtime &rt, const jsi::String &name) = 0;
+      virtual jsi::Value nativeSumSquares(jsi::Runtime &rt, double a, double b) = 0;
+
+  };
+
+  // This is the actual implementation of the module methods
+    class UtilsTurboModule : public TurboUtilsSpecJSI {
+    public:
+        UtilsTurboModule(std::shared_ptr<react::CallInvoker> jsInvoker)
+                : TurboUtilsSpecJSI(jsInvoker) {}
+
+        jsi::String nativeGreeting(jsi::Runtime &rt, const jsi::String &name) override;
+        jsi::Value nativeSumSquares(jsi::Runtime &rt, double a, double b) override;
+    };
 }
 
 #endif /* TURBOUTILSMODULE_H */

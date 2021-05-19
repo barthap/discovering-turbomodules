@@ -20,3 +20,11 @@ interface MyTurboUtilsJSI {
 // we can get global variable defined in C++
 declare var _jsiTurboUtils: MyTurboUtilsJSI;
 export const MyUtilsJSI = _jsiTurboUtils;
+
+// TurboModule
+interface MyTurboUtilsTM extends MyTurboUtilsJSI {
+  // I made both interfaces equal
+}
+
+declare var _myUtilsTurboModule: MyTurboUtilsTM;
+export const MyUtilsTurbo = _myUtilsTurboModule;

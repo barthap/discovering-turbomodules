@@ -1,10 +1,11 @@
 #include <jni.h>
+#include <CallInvokerHolder.h>
+#include <fbjni/fbjni.h>
+#include <jsi/jsi.h>
+
 #include "TurboUtilsModule.h"
 #include "Logging.h"
 
-#include <fbjni/fbjni.h>
-
-#include <jsi/jsi.h>
 
 using namespace facebook;
 
@@ -43,10 +44,17 @@ struct NativeProxy : jni::JavaClass<NativeProxy> {
     }
 
 private:
-    static void installNativeJsi(jni::alias_ref<jni::JObject> thiz, jlong jsiRuntimePtr) {
+    static void installNativeJsi(jni::alias_ref<jni::JObject> thiz,
+                                 jlong jsiRuntimePtr,
+                                 jni::alias_ref<react::CallInvokerHolder::javaobject> jsCallInvokerHolder) {
         auto jsiRuntime = reinterpret_cast<jsi::Runtime*>(jsiRuntimePtr);
+        auto jsCallInvoker = jsCallInvokerHolder->cthis()->getCallInvoker();
 
+        // initialize jsi module
         turboutils::installJsi(*jsiRuntime);
+
+        // initialize turbo module
+        turboutils::installTurboModule(*jsiRuntime, jsCallInvoker);
     }
 
 private:

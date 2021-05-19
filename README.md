@@ -3,8 +3,8 @@
 A journey to discover RN TurboModules. Each commit is a different stage towards a fully featured Turbo Module.
 
 0. Basic initialization and boilerplate (use `npx create-react-native-library` with C++ template)
-1. _TODO:_ Adding `fbjni` for Android - it greatly improves Java - C++ interop.
-2. _TODO:_ Migrating from legacy RN bridge to JSI.
+1. Adding `fbjni` for Android - it greatly improves Java - C++ interop.
+2. Migrating from legacy RN bridge to JSI.
 3. _TODO:_ Implementing the "Real" Turbo Module.
 4. _TODO:_ Calling Kotlin/Swift code from C++ module.
 5. _TODO:_ Multithreading / asynchronous operations
