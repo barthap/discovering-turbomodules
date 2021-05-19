@@ -24,6 +24,7 @@ export const MyUtilsJSI = _jsiTurboUtils;
 // TurboModule
 interface MyTurboUtilsTM extends MyTurboUtilsJSI {
   // I made both interfaces equal
+  funAsync: () => Promise<string>;
 }
 
 declare var _myUtilsTurboModule: MyTurboUtilsTM;
