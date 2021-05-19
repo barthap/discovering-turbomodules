@@ -1,8 +1,8 @@
 #include <jni.h>
-#include "example.h"
+#include "TurboUtilsModule.h"
 
 extern "C"
-JNIEXPORT jint JNICALL
-Java_com_myturboutils_MyTurboUtilsModule_nativeMultiply(JNIEnv *env, jclass type, jint a, jint b) {
-    return example::multiply(a, b);
+JNIEXPORT jdouble JNICALL
+Java_com_myturboutils_MyTurboUtilsModule_nativeSumSquares(JNIEnv *env, jclass type, jdouble a, jdouble b) {
+    return turboutils::sumSquares(a, b);
 }

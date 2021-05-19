@@ -120,6 +120,11 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
+  // Fixes "More than one file was found with OS independent path 'lib/x86/libc++_shared.so'"
+  packagingOptions {
+    pickFirst '**/*.so'
+  }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {

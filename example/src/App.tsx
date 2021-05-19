@@ -5,14 +5,17 @@ import MyTurboUtils from 'my-turbo-utils';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
+  const [greeting, setGreeting] = React.useState('none yet');
 
   React.useEffect(() => {
-    MyTurboUtils.multiply(3, 7).then(setResult);
+    MyTurboUtils.sumSquares(3, 4).then(setResult);
+    MyTurboUtils.makeGreetingFor('Bridge').then(setGreeting);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Sum Squares result: {result}</Text>
+      <Text>Greeting: {greeting}</Text>
     </View>
   );
 }

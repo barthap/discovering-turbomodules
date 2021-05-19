@@ -5,7 +5,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 add_library(cpp
             SHARED
-            ../cpp/example.cpp
+            ../cpp/TurboUtilsModule.cpp
             cpp-adapter.cpp
 )
 

@@ -1,9 +1,10 @@
 import { NativeModules } from 'react-native';
 
-type MyTurboUtilsType = {
-  multiply(a: number, b: number): Promise<number>;
+type MyTurboUtilsBridgeType = {
+  sumSquares(a: number, b: number): Promise<number>;
+  makeGreetingFor(name: string): Promise<string>;
 };
 
 const { MyTurboUtils } = NativeModules;
 
-export default MyTurboUtils as MyTurboUtilsType;
+export default MyTurboUtils as MyTurboUtilsBridgeType;

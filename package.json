@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/barthap/my-turbo-utils",
+  "repository": "https://github.com/barthap/discovering-turbomodules",
   "author": "Bartłomiej Klocek <bartlomiej.klocek@swmansion.com> (https://github.com/barthap)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/barthap/my-turbo-utils/issues"
+    "url": "https://github.com/barthap/discovering-turbomodules/issues"
   },
-  "homepage": "https://github.com/barthap/my-turbo-utils#readme",
+  "homepage": "https://github.com/barthap/discovering-turbomodules#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -80,14 +80,8 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "yarn lint && yarn typescript"
     }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "release-it": {
     "git": {
