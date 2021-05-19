@@ -209,7 +209,10 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation project(':myturboutils')
+    // To avoid Duplicate Class...
+    implementation(project(':myturboutils')) {
+      exclude group:'com.facebook.fbjni'
+    }
 }
 
 // Run this once to be able to run the application with BUCK
