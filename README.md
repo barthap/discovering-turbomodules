@@ -1,5 +1,7 @@
 # Discovering Turbo Modules
 
+> **Note: This example was made in RN 0.63.** Some things have changed since then, but the good news is that now the setup should be easier in RN 0.67 / 0.68
+
 A journey to discover React Native TurboModules. Alghough TurboModules aren't officially released yet and there is almost no documentation, there are already some libraries based on new infrastructure, including awesome _[Reanimated 2](https://docs.swmansion.com/react-native-reanimated/)_ by SWM. I digged through React Native source code and various Github repositories to learn how it is done. I managed to get it working, so I share my step-by-step journey here.
 
 [Each commit](https://github.com/barthap/discovering-turbomodules/commits/main) is a different stage towards a fully featured Turbo Module.
@@ -9,7 +11,7 @@ A journey to discover React Native TurboModules. Alghough TurboModules aren't of
 2. [see commit](https://github.com/barthap/discovering-turbomodules/commit/592ec39f7c495790e87d51424f296205026e3919) - Migrating from legacy RN bridge to JSI.
 3. [see commit](https://github.com/barthap/discovering-turbomodules/commit/5244ab8a6bd4f6688d8aff1413ee11b0da34b3e3) - Implementing the "Real" Turbo Module.
 4. [see commit](https://github.com/barthap/discovering-turbomodules/commit/ed4adec1458e79a271a3145151824bf68fdf0689) - Calling Kotlin/Swift code from C++ module.
-5. _TODO:_ Multithreading / asynchronous operations
+5. _TODO:_ Multithreading / asynchronous operations ([a commit with experiments](https://github.com/barthap/discovering-turbomodules/commit/b456d6b3d6469f4148242d235afab477403b8c4a))
 
 I'm not so creative in examples, I ended up with something simple, but demonstrating:
 The module consists of two methods:
