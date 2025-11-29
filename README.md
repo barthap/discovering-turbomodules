@@ -1,6 +1,9 @@
 # Discovering Turbo Modules
 
-> **Note: This example was made in RN 0.63.** Some things have changed since then, but the good news is that now the setup should be easier in RN 0.67 / 0.68
+> [!IMPORTANT] 
+> _**This example was made in RN 0.63.** A lot has changed since then; turbo modules and the (new) architecture are now the defaults in modern React Native. Please refer to the [official RN documentation](https://reactnative.dev/docs/the-new-architecture/pure-cxx-modules) for the most up-to-date information._
+
+---
 
 A journey to discover React Native TurboModules. Alghough TurboModules aren't officially released yet and there is almost no documentation, there are already some libraries based on new infrastructure, including awesome _[Reanimated 2](https://docs.swmansion.com/react-native-reanimated/)_ by SWM. I digged through React Native source code and various Github repositories to learn how it is done. I managed to get it working, so I share my step-by-step journey here.
 
